@@ -1,0 +1,68 @@
+[startup]
+#order=Date_Time.Time_HM \
+#	Statistics.CPU-g Processes.Load-t
+
+#order= 	Statistics.CPU-g Processes.Load-t
+order= Stat-CPU.CPU-g \
+	Processes.Processes-t \
+         Memory.Mem_Free-b
+
+
+[resources]
+
+horizontal = 1
+
+# The outputs, black on white
+foreground = white
+background = grey75
+
+# A large-medium size text font.
+text-font = 5x7
+
+# Solid graphs with at least 5 grid lines in grey.
+graph-solid = yes
+grid-min = 5
+grid-foreground = white
+
+# Black on white output labels, small font, below the data.
+label-font = 5x7
+label-foreground = white
+label-position = bottom
+
+# Black on white menu items in a small-medium size font.
+menu-foreground = white
+menu-background = grey75
+menu-font = 7x13
+
+[ProcMeter.Version]
+# A smaller font than normal with no label.
+text-font ProcMeter.Version= 6x10
+label-position = bottom
+
+[Statistics]
+
+[Statistics.CPU]
+
+# The minimum number of grid lines, they are 20% each.
+grid-min = 5
+
+[Processes]
+
+run = XTerm(top)
+
+[Memory]
+
+# More information about memory usage.
+run = XTermWait(free)
+grid-min = 18
+
+[DiskUsage]
+
+# Information about the disks
+run = XTermWait(df)
+
+
+#[Network]
+
+# To pick up extra devices not automatically recognised.
+#options=ppp0 slip0

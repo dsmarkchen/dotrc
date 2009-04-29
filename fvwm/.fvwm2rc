@@ -1,0 +1,397 @@
+# Mark's FVWM configuration file
+# based on http://www.adebenham.com/fvwm/
+#
+# It works on my Fedora Core 5.
+#
+# This theme is very simple, and the size of the configuration file is
+# magnificent short!!! It only contains the basic programs that I am using, it
+# will fit me on devlopment.
+#
+# Main tools:
+#    terminal (konsole and xterm),
+#    editor   (emacs, vim)
+#    utility  (firefox, smb4k)
+#    system   (procmeter3 to display CPU and mem usage)
+
+ImagePath $[HOME]/.fvwm/images:$[HOME]/.fvwm/themes
+
+
+# set my emacs font
+SetEnv defaultFont -misc-fixed-medium-r-normal--15-140-75-75-c-90-iso8859-1
+
+# Ignore Numlock
+IgnoreModifiers L25
+
+EdgeResistance 10000 20
+EdgeScroll 0 0
+EdgeThickness 1
+
+ClickTime 750
+SnapAttraction 8 SameType
+
+DeskTopSize 1x1
+
+# Setup Colorsets
+CleanupColorsets
+# BottomPanel
+Colorset 0 fg white, bg grey,fgsh #444444,sh #000066,hi blue
+# Menu
+Colorset 1 fg white , bg grey,fgsh black,sh #666666,hi #bbbbff, Transparent buffer, tint #bbbbff 50
+#Colorset 1 fg white , bg grey,fgsh black,sh #666666,hi #bbbbff, Translucent #bbbbff 50
+# Active menuitem
+Colorset 2 fg yellow, bg grey,fgsh #444444,sh #666666,hi #bbbbff, Transparent buffer, tint #bbbbff 50
+#Colorset 2 fg yellow, bg grey,fgsh #444444,sh #666666,hi #bbbbff, Translucent #bbbbff 50
+# PanelBar, Icontitle
+Colorset 3 RootTransparent,fg white ,fgsh black, bg grey,fgsh #444444,sh #000066 ,hi blue
+# Title bar + buttons - inactive
+Colorset 4 NoShape, RootTransparent Buffer, Tint #f6f6f6 20,bg #909090
+# Title bar - active
+Colorset 5 NoShape, RootTransparent Buffer, Tint #bbbbff 50,bg #909090
+
+# Menu styles
+MenuStyle * HilightBackOff, ActiveFore, MenuColorset 1, ActiveColorset 2
+MenuStyle * Hilight3DThickness -2, BorderWidth 2
+MenuStyle * Animation
+#MenuStyle * Font "Shadow=1 1 SE:xft:Bitstream Vera Sans Mono:style=Roman:size=8"
+MenuStyle * PopupDelayed, PopupDelay 100, PopdownDelayed, PopdownDelay 100
+MenuStyle * PopupOffset -3 100, TitleWarpOff
+MenuStyle * TitleUnderlines2, SeparatorsLong, TrianglesRelief
+MenuStyle * AutomaticHotkeysOff, DoubleClickTime
+MenuStyle * PopupAsSubmenu, HoldSubmenus, SubmenusRight
+MenuStyle * ItemFormat "%|%i%l%>%|"
+BusyCursor DynamicMenu True
+
+OpaqueMoveSize unlimited
+
+# Mark off the top panel area
+EwmhBaseStruts 0 0 32 0
+#EWMHPlacementUseWorkingArea
+
+# default Styles
+#Style *	Font "Shadow=1 1 SE:xft:Seized Future A:Roman:size=16"
+#Style *	IconFont xft:Arial:Bold:Roman:size=14
+#Style *		ForeColor    #a0a0a0, BackColor    #909090
+#Style *		HilightFore  #e0e0e0, HilightBack  #808080
+#Style *		FvwmBorder
+#Style *		NoIconPosition EWMHPlacementUseWorkingArea
+Style *		IconBox 1000x70-1-1, NoIconOverride, IconFill right bottom, IconGrid 40 40
+Style *		IconTitle, IconTitleColorset 3, HilightIconTitleColorset 3, IconTitleRelief 0
+#Style *         IconFont "Shadow=1 1 SE:xft:Arial:size=12"
+Style *		SloppyFocus
+Style *		GrabFocusOff
+Style *		MinOverlapPlacement
+#Style *		Button 1, Button 2, Button 4, Button 6
+#Style *		FvwmButtons
+Style *		WindowShadeShrinks, WindowShadeSteps 100
+Style *		MiniIcon title_bar/mini.x.png
+
+# Sticky stuff
+#Style "gDesklets"	Sticky,NoTitle,NeverFocus, BorderWidth 0, HandleWidth 0
+#Style "gkrellm"		Sticky,NoTitle,NeverFocus, BorderWidth 0, HandleWidth 0
+#Style "Configuration"	Title, SloppyFocus
+
+# Default style for untitled windows
+Style "Untitled"	WindowListSkip,CirculateSkip
+
+# Styles for various Fvwm modules:
+#Style "ClockBar"    NeverFocus, StaysPut
+
+# Special Styles
+Style "XEyes" Sticky, NoTitle,NeverFocus
+
+CursorStyle TITLE left_ptr
+CursorStyle DEFAULT left_ptr
+CursorStyle MENU left_ptr
+CursorStyle ROOT left_ptr
+
+Key Escape      A   M   SendToModule    FvwmProxy   ShowToggle
+Key Tab		A	M	Next (AcceptsFocus CurrentDesk) WarpToWindow
+Key Tab		A	SM	Prev (AcceptsFocus CurrentDesk) WarpToWindow
+Key Up		A	CM	ScanForWindow North West Focus
+Key Down	A	CM	ScanForWindow South West Focus
+Key Left	A	CM	ScanForWindow West North Focus
+Key Right	A	CM	ScanForWindow East North Focus
+
+
+Key F1		A	M	GotoDesk 0 0 0 0
+Key F2		A	M	GotoDesk 1 1 1 1
+Key F3		A	M	GotoDesk 2 2 2 2
+Key F4		A	M	GotoDesk 3 3 3 3
+
+
+#ctrl+alt+shift with x bring terminal
+Key x		A	SCM	Exec xterm -fs 9 -fa "Bitstream\ Vera\ Mono"
+
+#ctrl+alt+z to lock
+Key z		A	CM	Exec /usr/bin/xlock
+
+# three menus for mouse
+Mouse	1	R	N   Menu MainMenu Nop   
+Mouse	2	R	N   WindowList Nop
+Mouse	3	R	N   Menu "Module-Popup" Nop
+
+#   for other parts of the window/borders/icons:
+Mouse 1	FS	A	Resize-or-Raise
+Mouse 1	T	A	Move-or-Raise
+Mouse 1	I	A	Move-or-Iconify
+Mouse 2	I	A	Move-or-Iconify
+Mouse 2	FST	A	Menu Window-Ops Nop
+Mouse 3	TSIF	A	RaiseLower
+Mouse 1 W	M	Move-or-Raise
+Mouse 1 W	4	Move-or-Raise
+
+
+#     button    context modifie function
+Mouse 0         1       A       Menu Window-Ops Nop
+Mouse 0 	2	A	Maximize
+Mouse 0 	4	A	Close
+Mouse 0 	6	A	Thumbnail
+#Mouse 1 	4	A	Maximize
+#Mouse 2 	4	A	Maximize    0 grow
+#Mouse 3 	4	A	Maximize grow    0
+
+########################
+#  SECT: DECOR
+########################
+# Decor: micro_GUI
+#
+# My title button definition
+# [1] ------title--------[6][4][2]
+# 
+# 1 : options
+# 6 : minimize
+# 4 : close
+# 2 : maximize
+# note : I am using micro_GUI theme from `tril'
+#       http://ironphoenix.org/tril/fvwm/configs/fvwm-theme/
+#	LeftEnd AdjustedPixmap micro_GUI/titleleft_active.xpm \
+#	RightEnd AdjustedPixmap micro_GUI/titleright_active.xpm 
+
+
+DestroyDecor micro_GUIDecor
+AddToDecor   micro_GUIDecor
++  TitleStyle AllActive MultiPixmap \
+	Main AdjustedPixmap  micro_GUI/title_active.xpm  \
+	LeftMain AdjustedPixmap micro_GUI/titlebt_active.xpm \
+	UnderText AdjustedPixmap micro_GUI/titleunder_active.xpm \
+	RightOfText AdjustedPixmap micro_GUI/titlert_active.xpm
++  TitleStyle AllInactive MultiPixmap \
+	Main AdjustedPixmap micro_GUI/title_inactive.xpm \
+	LeftMain AdjustedPixmap micro_GUI/titlebt_inactive.xpm \
+	UnderText AdjustedPixmap micro_GUI/titleunder_inactive.xpm \
+        RightOfText AdjustedPixmap micro_GUI/titlert_inactive.xpm
++ TitleStyle LeftJustified Height 17 -- Flat
++ ButtonStyle All -- UseTitleStyle 
++ AddButtonStyle All -- Flat
++ AddButtonStyle 1 \
+   ActiveUp (Pixmap micro_GUI/options_activeup.xpm -- Flat ) \
+   ActiveDown (Pixmap micro_GUI/options_activedown.xpm -- Flat) 
++ AddButtonStyle 1 \
+   Inactive (Pixmap micro_GUI/options_inactive.xpm)
++  AddButtonStyle 6 \
+ActiveUp (Pixmap micro_GUI/iconify_activeup.xpm -- Flat) \
+ActiveDown (Pixmap micro_GUI/iconify_activedown.xpm -- Flat) \
+Inactive (Pixmap micro_GUI/iconify_inactive.xpm -- Flat)
++ AddButtonStyle 4 \
+ActiveUp (Pixmap micro_GUI/close_activeup.xpm -- Flat) \
+ActiveDown (Pixmap micro_GUI/close_activedown.xpm ) \
+Inactive (Pixmap micro_GUI/close_inactive.xpm -- Flat)
++ AddButtonStyle 2 \
+ActiveUp (Pixmap micro_GUI/maximize_activeup.xpm -- Flat)  \
+ActiveDown (Pixmap micro_GUI/maximize_activedown.xpm -- Flat) \
+Inactive (Pixmap micro_GUI/maximize_inactive.xpm -- Flat) 
+
+
+############################ 
+#     SECTION:  STYLE
+############################
+
+Style "*" UseDecor micro_GUIDecor
+Style "*" MWMBorder, FirmBorder
+Style "*" HandleWidth  2
+Style "*" DecorateTransient
+Style "Fvwm*"       NoTitle,  Sticky, WindowListSkip
+Style "Fvwm*"       BorderWidth 0, CirculateSkipIcon, CirculateSkip
+Style "FvwmButtons" NeverFocus, StaysOnTop, BorderWidth 0,HandleWidth 0
+Style "PanelBar"    NeverFocus, StaysPut, BorderWidth 0,HandleWidth 0
+
+Style "Emacs"        NoTitle, StartsOnPage 0 ,SkipMapping
+Style "Firefox-bin"  StartsOnPage 1,SkipMapping
+
+######################## Initialization Functions ############################
+DestroyFunc StartFunction
+AddToFunc StartFunction
++ I Module FvwmButtons PanelBar
++ I Module FvwmCommandS
++ I Module FvwmAnimate
++ I Module FvwmProxy
+#+ I Module FvwmAuto FvwmAutohide -menter enter_handler
+#+ I Test (Restart) All (Iconic) Test (f $[HOME]/.fvwm/icon.tmp.$[w.id].png) WindowStyle IconOverride, Icon $[HOME]/.fvwm/icon.tmp.$[w.id].png
+
+
+
+AddToFunc ExitFunction
++ I Test (!ToRestart) Exec exec rm -f  $[HOME]/.fvwm/icon.tmp.*  $[HOME]/.fvwm/icon.capture.* 
++ I Exec exec sync
+
+
+###################
+# SECT: MENU
+###################
+
+# menu used by fvwm
+# Three menus for mouse click by left, center and right.
+
+AddToMenu "Module-Popup" "Modules" Title
++ "FvwmIdent" FvwmIdent
++ "FvwmEvent" FvwmEvent
++ "FvwmConsole" FvwmConsole
+
+AddToMenu Window-Ops	"&Move"		Move
++ "&Resize"	Resize
++ "R&aise"	Raise
++ "&Lower"	Lower
++ "(Un)&Stick"	Stick
++ ""		Nop
++ "&Delete"	Delete
++ "&Close"	Close
++ "Destroy"	Destroy
++ ""		Nop
++ "MoveTo 1"	MoveToDesk 0 0 0 0
++ "MoveTo 2"	MoveToDesk 1 1 1 1
++ "MoveTo 3"	MoveToDesk 2 2 2 2
++ "MoveTo 4"	MoveToDesk 3 3 3 3
+
+DestroyMenu MainMenu
+AddToMenu MainMenu	
++ %menu/konsole.png%"Konsole"	Exec exec konsole
++ %menu/gvim.png%"Vim Editor" Exec exec gvim 
++ %menu/firefox.png%"Firefox"	Exec exec firefox
++ %menu/smb4k.png%"smb4k"	Exec exec smb4k
++ %menu/konqueror.png%"konqueror"	Exec exec konqueror
++			""		Nop
++ %menu/terminal.png%"hp ipaq h5550" RemoteShell 209.47.83.4
++ %menu/terminal.png%"greenphone" RemoteShell 10.10.10.20 
++			""		Nop
++ %menu/gear.png%"Restart Fvwm"      Restart
++ %menu/exit.png%"Exit Fvwm"  Quit
++ "Take screenshot" Exec exec xwd -id $[w] -out /tmp/screenshot.cap
+
+AddToMenu Window-Ops	"&Move"		Move
++			"&Resize"	Resize
++			"R&aise"	Raise
++			"&Lower"	Lower
++			"(Un)&Stick"	Stick
++           "&Capture"	CaptureWindow	
++			""		Nop
++           "Take screenshot" Exec exec xwd -id $[w] -out /tmp/screenshot.cap
++			"&Delete"	Delete
++			"&Close"	Close
++			"Destroy"	Destroy
++			""		Nop
++			"MoveTo 1"	MoveToDesk 0 0 0 0
++			"MoveTo 2"	MoveToDesk 1 1 1 1
++			"MoveTo 3"	MoveToDesk 2 2 2 2
++			"MoveTo 4"	MoveToDesk 3 3 3 3
+
+AddToFunc Move-or-Raise		I Raise
++				M Move
++  				D WindowShade
+
+AddToFunc Move-or-Iconify	I Raise
++				M Move
++				D DeThumbnail
+
+AddToFunc Resize-or-Raise	I Raise
++				M Resize
++				D Lower
+
+AddToFunc Iconify-and-Raise
++                               I DeThumbnail
++                               I Raise
+
+# Animations are controlled by this module
+# You could also use Frame, Lines, Flip, Turn, Twist, Random and None.
+DestroyModuleConfig FvwmAnimate: *
+*FvwmAnimate: Effect Zoom3D
+*FvwmAnimate: Width 3
+
+# The autohiding functions
+AddToFunc autohide
++ I ThisWindow ($0) Deschedule $[w.id]
++ I ThisWindow ($0) ThisWindow (shaded) WindowShade off
++ I TestRc (!Match) All ($0, !shaded) autohide_hide $1 $2
+
+AddToFunc autohide_hide
++ I Schedule $0 $[w.id] WindowShade $1
++ I Schedule $0 $[w.id] Deschedule $[w.id]
+
+# Nifty thumbnails for icons
+DestroyFunc Thumbnail
+AddToFunc Thumbnail
++ I Raise
++ I Piperead "xwd -silent -id $[w.id] > $[HOME]/.fvwm/icon.tmp.$[w.id].xwd"
++ I Iconify
++ I Exec nice -19 convert -resize 64x54 -frame 1x1 -mattecolor black -quality 0 xwd:$[HOME]/.fvwm/icon.tmp.$[w.id].xwd png:$[HOME]/.fvwm/icon.tmp.$[w.id].png; FvwmCommand 'WindowId $[w.id] WindowStyle IconOverride, Icon $[HOME]/.fvwm/icon.tmp.$[w.id].png, StaysOnBottom'
+ 
+DestroyFunc DeThumbnail
+AddToFunc DeThumbnail
++ I DestroyWindowStyle
++ I Exec rm -f $HOME/.fvwm/icon.tmp.$[w.id].*
++ I Iconify
+
+DestroyFunc RemoteShell
+AddToFunc RemoteShell
++ I Exec exec xterm -fa "Bitstream Vera Mono" -fs 10 -geometry 80x30 -bg rgb:e8/e8/e8 -T "$0" +vb -e ssh -X "$0"
+
+DestroyFunc CaptureWindow
+AddToFunc CaptureWindow
++ I Piperead "xwd -silent -id $[w.id] > $[HOME]/.fvwm/icon.capture.$[w.id].xwd"
++ I Exec exec convert $[HOME]/.fvwm/icon.capture.$[w.id].xwd $[HOME]/.fvwm/icon.capture.$[w.id].png
+
+
+########################## Window-Identifier ###############################
+# Just choose colors and a fonts
+*FvwmIdentBack MidnightBlue
+*FvwmIdentFore Yellow
+#*FvwmIdentFont xft:Arial:Regular:Roman:size=12
+
+########################### Pager #########################################
+*FvwmPager: Colorset            * 3
+*FvwmPager: SloppyFocus
+*FvwmPager: MiniIcons
+*FvwmPager: UseSkipList
+*FvwmPager: Hilight             #ccccff
+*FvwmPager: WindowColors        #cccccc #777799 #ffffff #9999cc
+*FvwmPager: Font                none
+#*FvwmPager: SmallFont           xft:Arial:Regular:Roman:size=6
+*FvwmPager: Balloons            All
+*FvwmPager: BalloonBack         Yellow
+*FvwmPager: BalloonFore         Black
+#*FvwmPager: BalloonFont         xft:Arial:Regular:Roman:size=12
+*FvwmPager: BalloonYOffset      +2
+*FvwmPager: BalloonBorderWidth  1
+*FvwmPager: BalloonBorderColor  Black
+
+########################### Top Panel #####################################
+*PanelBar: BoxSize smart
+*PanelBar: Columns 25
+*PanelBar: Rows 1
+*PanelBar: Frame 0
+*PanelBar: Colorset 3
+*PanelBar: ActiveColorset 3
+*PanelBar: PressColorset 3
+*PanelBar: Font none
+#"Shadow=1 SE:xft:ZeroHour:bold:pixelsize=16:minspace=true"
+*PanelBar: Geometry +0+0
+*PanelBar: Padding 0 0
+*PanelBar: Pixmap none
+*PanelBar: (3x1 icon panel/normal/menu.png, ActiveIcon panel/hover/menu.png, Action Menu MainMenu Root 0 32p Nop)
+*PanelBar: (1x1 icon panel/normal/gnome-terminal.png, ActiveIcon panel/hover/gnome-terminal.png, Action Exec xterm)
+*PanelBar: (1x1 icon panel/normal/firefox.png, ActiveIcon panel/hover/firefox.png, Action Exec firefox)
+*PanelBar: (1x1 icon panel/normal/gnome-lockscreen.png, ActiveIcon panel/hover/gnome-lockscreen.png, Action Exec xlock)
+*PanelBar: (1x1 icon panel/normal/stock_dialog-warning.png, ActiveIcon panel/hover/stock_dialog-warning.png, Action Exec xkill)
+*PanelBar: (4x1 Swallow "FvwmPager" "FvwmPager 0 3")
+*PanelBar: (7x1 Swallow "procmeter3" "Exec exec procmeter3")
+*PanelBar: (2x1 Swallow "xeyes" "Exec exec xeyes")
+
