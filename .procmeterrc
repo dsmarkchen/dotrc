@@ -5,7 +5,7 @@
 #order= 	Statistics.CPU-g Processes.Load-t
 order= Stat-CPU.CPU-g \
 	Processes.Processes-t \
-         Memory.Mem_Free-b
+         Memory.Mem_Free-g
 
 
 [resources]
