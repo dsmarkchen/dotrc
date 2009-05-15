@@ -4,8 +4,10 @@
 # It works on my Fedora Core 5.
 #
 # This theme is very simple, and the size of the configuration file is
-# magnificent short!!! It only contains the basic programs that I am using, it
-# will fit me on devlopment.
+# magnificent short!!! 
+#
+# It only contains the basic programs that I am using, so it fits my 
+# development.
 #
 # Main tools:
 #    terminal (konsole and xterm),
@@ -13,11 +15,9 @@
 #    utility  (firefox, smb4k)
 #    system   (procmeter3 to display CPU and mem usage)
 
+SetEnv fvwm_wallpapers $[HOME]/.fvwm/wallpapers
 ImagePath $[HOME]/.fvwm/images:$[HOME]/.fvwm/themes
 
-
-# set my emacs font
-SetEnv defaultFont -misc-fixed-medium-r-normal--15-140-75-75-c-90-iso8859-1
 
 # Ignore Numlock
 IgnoreModifiers L25
@@ -120,7 +120,7 @@ Key F4		A	M	GotoDesk 3 3 3 3
 
 
 #ctrl+alt+shift with x bring terminal
-Key x		A	SCM	Exec xterm -fs 9 -fa "Bitstream\ Vera\ Mono"
+Key x		A	SCM	Exec xterm 
 
 #ctrl+alt+z to lock
 Key z		A	CM	Exec /usr/bin/xlock
@@ -225,6 +225,7 @@ AddToFunc StartFunction
 + I Module FvwmCommandS
 + I Module FvwmAnimate
 + I Module FvwmProxy
++ I Exec exec fvwm-root -r $[fvwm_wallpapers]/background.png
 #+ I Module FvwmAuto FvwmAutohide -menter enter_handler
 #+ I Test (Restart) All (Iconic) Test (f $[HOME]/.fvwm/icon.tmp.$[w.id].png) WindowStyle IconOverride, Icon $[HOME]/.fvwm/icon.tmp.$[w.id].png
 
