@@ -1,0 +1,22 @@
+! this are Xresources to make xterm look good
+! put into ~/.Xresources
+! after changing contents, run xrdb -merge .Xresources
+
+xterm*faceName: Bitstream Vera Sans Mono
+xterm*faceSize: 10
+
+xterm*foreground: ivory
+xterm*background: black 
+xterm*cursorColor: ivory
+xterm*loginShell: true
+xterm*internalBorder: 3
+xterm*scrollBar: false
+
+xterm*scrollKey: true
+xterm*saveLines: 512
+xterm*multiClickTime: 250
+
+xterm*allowSendEvents: True
+xterm*sessionMgt: false
+
+xlogo*foreground: red
