@@ -10,10 +10,10 @@
 # development.
 #
 # Main tools:
-#    terminal (konsole and xterm),
-#    editor   (emacs, vim)
+#    fbpanel  (cpuperf.sh to show cpu percentage)
+#    terminal (xterm)
+#    editor   (vim)
 #    utility  (firefox, smb4k)
-#    system   (procmeter3 to display CPU and mem usage)
 
 SetEnv fvwm_wallpapers $[HOME]/.fvwm/wallpapers
 ImagePath $[HOME]/.fvwm/images:$[HOME]/.fvwm/themes
@@ -124,7 +124,7 @@ Key F4		A	M	GotoDesk 3 3 3 3
 #ctrl+alt+shift with x bring terminal
 Key x		A	SCM	Exec xterm 
 
-Key y		A	SCM	Exec root-tail -g 800x250+80+0 /var/log/messages
+Key y		A	SCM	Exec /bin/sh -c 'root-tail /var/log/messages'
 
 #ctrl+alt+z to lock
 Key z		A	CM	Exec /usr/bin/xlock
@@ -280,7 +280,7 @@ AddToMenu MainMenu
 +			""		Nop
 + %menu/gear.png%"Restart Fvwm"      Restart
 + %menu/exit.png%"Exit Fvwm"  Quit
-+ "Take screenshot" Exec exec xwd -id $[w] -out /tmp/screenshot.cap
++ "Take screenshot" Exec exec xwd -id $[w] -out $[HOME]/screenshot.cap
 
 AddToMenu Window-Ops	"&Move"		Move
 +			"&Resize"	Resize
@@ -289,7 +289,7 @@ AddToMenu Window-Ops	"&Move"		Move
 +			"(Un)&Stick"	Stick
 +           "&Capture"	CaptureWindow	
 +			""		Nop
-+           "Take screenshot" Exec exec xwd -id $[w] -out /tmp/screenshot.cap
++           "Take screenshot" Exec exec xwd -id $[w] -out $[HOME]/screenshot.cap
 +			"&Delete"	Delete
 +			"&Close"	Close
 +			"Destroy"	Destroy

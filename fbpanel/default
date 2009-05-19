@@ -108,7 +108,7 @@
 
 Global {
 
-    edge = bottom
+    edge = top
     allign = left
     margin = 0
     widthtype = percent
@@ -192,12 +192,12 @@ Plugin {
 	button {
 	    icon = mozilla-firefox
             tooltip = Firefox web browser
-            action =firefox
+            action = firefox
 	}
         button {
             icon = gnome-emacs
             tooltip = vim
-            action = vim
+            action = gvim
         }
 
     }

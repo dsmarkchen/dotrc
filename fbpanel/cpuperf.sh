@@ -30,8 +30,9 @@ cpu_steal=${cpu_vals[7]}
 cpu_tot2=`echo $cpu_user+$cpu_nice+$cpu_sys+$cpu_idle \
  +$cpu_iowait+$cpu_irq+$cpu_softirq+$cpu_steal | bc`
 
-pcpu=`echo "(100.0 * ($cpu_sys - $cpu_sys1 + $cpu_user - $cpu_user1)) \
+pcpu=`echo "100 - (100 * ($cpu_idle - $cpu_idle1)) \
    / ($cpu_tot2 - $cpu_tot1)" | bc`
+
 
 echo "CPU: " $pcpu "%"
   

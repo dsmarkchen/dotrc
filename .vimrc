@@ -5,7 +5,7 @@ set autoindent
 set softtabstop=4
 set shiftwidth=4
 set showmatch
-set background=dark
+set background=light
 set hlsearch
 set incsearch
 set number

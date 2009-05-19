@@ -5,9 +5,9 @@
 xterm*faceName: Bitstream Vera Sans Mono
 xterm*faceSize: 10
 
-xterm*foreground: ivory
-xterm*background: black 
-xterm*cursorColor: ivory
+xterm*foreground: black
+xterm*background: white
+xterm*cursorColor: black
 xterm*loginShell: true
 xterm*internalBorder: 3
 xterm*scrollBar: false
