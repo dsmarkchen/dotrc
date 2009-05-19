@@ -3,9 +3,9 @@
 #	Statistics.CPU-g Processes.Load-t
 
 #order= 	Statistics.CPU-g Processes.Load-t
-order= Stat-CPU.CPU-g \
+order= Stat-CPU.CPU-t \
 	Processes.Processes-t \
-         Memory.Mem_Free-g
+         Memory.Mem_Free-t
 
 
 [resources]

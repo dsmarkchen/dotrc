@@ -52,7 +52,7 @@ Colorset 5 NoShape, RootTransparent Buffer, Tint #bbbbff 50,bg #909090
 MenuStyle * HilightBackOff, ActiveFore, MenuColorset 1, ActiveColorset 2
 MenuStyle * Hilight3DThickness -2, BorderWidth 2
 MenuStyle * Animation
-#MenuStyle * Font "Shadow=1 1 SE:xft:Bitstream Vera Sans Mono:style=Roman:size=8"
+MenuStyle * Font "Shadow=1 1 SE:xft:Bitstream Vera Sans Mono:style=Roman:size=8"
 MenuStyle * PopupDelayed, PopupDelay 100, PopdownDelayed, PopdownDelay 100
 MenuStyle * PopupOffset -3 100, TitleWarpOff
 MenuStyle * TitleUnderlines2, SeparatorsLong, TrianglesRelief
@@ -68,26 +68,24 @@ EwmhBaseStruts 0 0 32 0
 #EWMHPlacementUseWorkingArea
 
 # default Styles
-#Style *	Font "Shadow=1 1 SE:xft:Seized Future A:Roman:size=16"
+Style *	Font "Shadow=1 1 SE:xft:Seized Future A:Arial:size=10"
+#Style *        IconFont "Shadow=1 1 SE:xft:Arial:size=12"
 #Style *	IconFont xft:Arial:Bold:Roman:size=14
-#Style *		ForeColor    #a0a0a0, BackColor    #909090
-#Style *		HilightFore  #e0e0e0, HilightBack  #808080
-#Style *		FvwmBorder
+Style *		ForeColor    #a0a0a0, BackColor    #909090
+Style *		HilightFore  #e0e0e0, HilightBack  #808080
+Style *		FvwmBorder
 #Style *		NoIconPosition EWMHPlacementUseWorkingArea
 Style *		IconBox 1000x70-1-1, NoIconOverride, IconFill right bottom, IconGrid 40 40
 Style *		IconTitle, IconTitleColorset 3, HilightIconTitleColorset 3, IconTitleRelief 0
-#Style *         IconFont "Shadow=1 1 SE:xft:Arial:size=12"
 Style *		SloppyFocus
 Style *		GrabFocusOff
 Style *		MinOverlapPlacement
-#Style *		Button 1, Button 2, Button 4, Button 6
-#Style *		FvwmButtons
 Style *		WindowShadeShrinks, WindowShadeSteps 100
 Style *		MiniIcon title_bar/mini.x.png
 
 # Sticky stuff
 #Style "gDesklets"	Sticky,NoTitle,NeverFocus, BorderWidth 0, HandleWidth 0
-#Style "gkrellm"		Sticky,NoTitle,NeverFocus, BorderWidth 0, HandleWidth 0
+#Style "gkrellm"	Sticky,NoTitle,NeverFocus, BorderWidth 0, HandleWidth 0
 #Style "Configuration"	Title, SloppyFocus
 
 # Default style for untitled windows
@@ -98,6 +96,10 @@ Style "Untitled"	WindowListSkip,CirculateSkip
 
 # Special Styles
 Style "XEyes" Sticky, NoTitle,NeverFocus
+
+Style "fbpanel*"     NoTitle, Sticky, WindowListSkip
+Style "fbpanel*"     NeverFocus, StaysOnTop,BorderWidth 0, HandleWidth 0
+
 
 CursorStyle TITLE left_ptr
 CursorStyle DEFAULT left_ptr
@@ -121,6 +123,8 @@ Key F4		A	M	GotoDesk 3 3 3 3
 
 #ctrl+alt+shift with x bring terminal
 Key x		A	SCM	Exec xterm 
+
+Key y		A	SCM	Exec root-tail -g 800x250+80+0 /var/log/messages
 
 #ctrl+alt+z to lock
 Key z		A	CM	Exec /usr/bin/xlock
@@ -218,15 +222,16 @@ Style "PanelBar"    NeverFocus, StaysPut, BorderWidth 0,HandleWidth 0
 Style "Emacs"        NoTitle, StartsOnPage 0 ,SkipMapping
 Style "Firefox-bin"  StartsOnPage 1,SkipMapping
 
-######################## Initialization Functions ############################
 DestroyFunc StartFunction
 AddToFunc StartFunction
-+ I Module FvwmButtons PanelBar
+# + I Module FvwmButtons PanelBar
 + I Module FvwmCommandS
 + I Module FvwmAnimate
 + I Module FvwmProxy
 + I Exec exec fvwm-root -r $[fvwm_wallpapers]/background.png
++ I Test (Init) Exec fbpanel 
 #+ I Module FvwmAuto FvwmAutohide -menter enter_handler
+
 #+ I Test (Restart) All (Iconic) Test (f $[HOME]/.fvwm/icon.tmp.$[w.id].png) WindowStyle IconOverride, Icon $[HOME]/.fvwm/icon.tmp.$[w.id].png
 
 
@@ -234,7 +239,6 @@ AddToFunc StartFunction
 AddToFunc ExitFunction
 + I Test (!ToRestart) Exec exec rm -f  $[HOME]/.fvwm/icon.tmp.*  $[HOME]/.fvwm/icon.capture.* 
 + I Exec exec sync
-
 
 ###################
 # SECT: MENU
@@ -357,42 +361,4 @@ AddToFunc CaptureWindow
 *FvwmIdentFore Yellow
 #*FvwmIdentFont xft:Arial:Regular:Roman:size=12
 
-########################### Pager #########################################
-*FvwmPager: Colorset            * 3
-*FvwmPager: SloppyFocus
-*FvwmPager: MiniIcons
-*FvwmPager: UseSkipList
-*FvwmPager: Hilight             #ccccff
-*FvwmPager: WindowColors        #cccccc #777799 #ffffff #9999cc
-*FvwmPager: Font                none
-#*FvwmPager: SmallFont           xft:Arial:Regular:Roman:size=6
-*FvwmPager: Balloons            All
-*FvwmPager: BalloonBack         Yellow
-*FvwmPager: BalloonFore         Black
-#*FvwmPager: BalloonFont         xft:Arial:Regular:Roman:size=12
-*FvwmPager: BalloonYOffset      +2
-*FvwmPager: BalloonBorderWidth  1
-*FvwmPager: BalloonBorderColor  Black
-
-########################### Top Panel #####################################
-*PanelBar: BoxSize smart
-*PanelBar: Columns 25
-*PanelBar: Rows 1
-*PanelBar: Frame 0
-*PanelBar: Colorset 3
-*PanelBar: ActiveColorset 3
-*PanelBar: PressColorset 3
-*PanelBar: Font none
-#"Shadow=1 SE:xft:ZeroHour:bold:pixelsize=16:minspace=true"
-*PanelBar: Geometry +0+0
-*PanelBar: Padding 0 0
-*PanelBar: Pixmap none
-*PanelBar: (3x1 icon panel/normal/menu.png, ActiveIcon panel/hover/menu.png, Action Menu MainMenu Root 0 32p Nop)
-*PanelBar: (1x1 icon panel/normal/gnome-terminal.png, ActiveIcon panel/hover/gnome-terminal.png, Action Exec xterm)
-*PanelBar: (1x1 icon panel/normal/firefox.png, ActiveIcon panel/hover/firefox.png, Action Exec firefox)
-*PanelBar: (1x1 icon panel/normal/gnome-lockscreen.png, ActiveIcon panel/hover/gnome-lockscreen.png, Action Exec xlock)
-*PanelBar: (1x1 icon panel/normal/stock_dialog-warning.png, ActiveIcon panel/hover/stock_dialog-warning.png, Action Exec xkill)
-*PanelBar: (4x1 Swallow "FvwmPager" "FvwmPager 0 3")
-*PanelBar: (7x1 Swallow "procmeter3" "Exec exec procmeter3")
-*PanelBar: (2x1 Swallow "xeyes" "Exec exec xeyes")
 
