@@ -1,5 +1,5 @@
 " vim configuration file
-" Last updated: Dec 2rd, 2010
+" Last updated: Feb 1, 2013
 
 set nocompatible " Why would I use vim if I wanted it to act like vi?
 set noshowmode
@@ -30,7 +30,7 @@ colorscheme ir_black
 "wombat
 "set guioptions=em
 set showtabline=2
-set lines=40 columns=99
+set lines=40 columns=85
 set bg=dark
 
 " gVim specific settings
@@ -77,53 +77,6 @@ set linebreak       "line breaks for linewrap
 set ruler
 set showcmd
 set showmatch
-"set list
-
-" Some useful miscellaneous options
-set listchars=tab:>-        " In case I want to use the 'list' option
-set matchpairs+=<:>                 " match < > with the % command, too
-set complete=.,w,b,i,t,u          " For great completion justice...
-set backspace=indent,eol            " allow rational backspacing in insert mode
-set formatoptions=tcrqn
-set comments=b:#                    " Most of my files use # for comments
-
-
-let c_gnu=1
-let c_comment_string=1
-"let c_space_errors=1
-
-" Only useful if using windows
-" Opens gvim using the entire screen
-autocmd GuiEnter * simalt ~x
- 
-
-autocmd FileType *      set formatoptions=tcql nocindent
-autocmd FileType c,cpp  set formatoptions=croql cindent comments=sl:/**,mb:\ *,elx:\ */,bO:///,O://
-autocmd FileType c,cpp  set cinoptions=g0,t0
-autocmd FileType c,cpp  set isk+=#        " so #if is considered as a key word
-autocmd FileType c,cpp  syn keyword cType uint8_t uint32_t
-" Highlight Class and Function names
-autocmd FileType c,cpp syn match    cCustomParen    "(" contains=cParen,cCppParen
-autocmd FileType c,cpp syn match    cCustomFunc     "\w\+\s*(" contains=cCustomParen
-autocmd FileType cpp syn match    cCustomScope    "::"
-autocmd FileType cpp syn match    cCustomClass    "\w\+\s*::" contains=cCustomScope
-autocmd FileType c,cpp let Tlist_Ctags_Cmd = 'ctags.exe --c++-kinds=+p --fields=+iaS --extra=+q --languages=c++'
-autocmd FileType cweb set omnifunc=ccomplete#Complete
-autocmd FileType c set omnifunc=ccomplete#Complete
-
-"autocmd FileType c,cpp syn match defined "[A-Z][A-Z0-9_]*\ " 
-"hi def link defined constant
-hi def link cCustomFunc  Function
-hi def link cCustomClass Function
-	
-setlocal define=^\(#\s*define\|[a-z]*\s*const\s*[a-z]*\)
-
-
-
-"set comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,bO:///,O://
-
-nnoremap <silent> <space>t :let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
- 
 
 " For Taglist
 nnoremap <silent> <F3> :TlistToggle<CR> 
@@ -146,24 +99,28 @@ highlight MyTagListFileName gui=bold guifg=Black guibg=LightBlue
 
 nmap <silent> <space><space> :! find . -name "*.cpp" -o -name "*.h" -print <CR>
 
- 
-" For File Browser
-nnoremap <silent> <F12> :Exp<CR>
- 
-" auto-change the directory to the current buffer
-autocmd BufEnter * :cd %:p:h
-
-" BufExplorer
-nnoremap <silent> <F11> :BufExplorer<CR>
-
-set suffixes=.bak,~,.o,.info,.swp,.obj
-
-let g:explHideFiles='\.swp$'
+" For DoxygenToolkit
 
 
-let g:lastfile = ""
-nmap <space>s :call SwitchHeaderAndCode()<CR>
+let g:DoxygenToolkit_fileTag = "\\file "
+let g:DoxygenToolkit_authorTag = "\\author "
+let g:DoxygenToolkit_versionTag = "\\version "
+let g:DoxygenToolkit_dateTag = "\\date "
+let g:DoxygenToolkit_briefTag_pre="\\brief"
+let g:DoxygenToolkit_paramTag_pre="\\param "
+let g:DoxygenToolkit_returnTag="\\return "
+let g:DoxygenToolkit_authorName="Mark Chen <mchen@extremeeng.com>" 
+let g:DoxygenToolkit_interCommentTag = " * "
+let g:DoxygenToolkit_startCommentTag = "/*! "
+let g:DoxygenToolkit_startCommentBlock = "//!< "
+let g:DoxygenToolkit_endCommentTag = " */"
+let g:DoxygenToolkit_endCommentBlock = ""
+let g:DoxygenToolkit_compactDoc = "yes"
 
+map <F2>a :DoxAuthor
+map <F2>f :Dox
+map <F2>b :DoxBlock
+map <F2>c A //!< 
 
 function! SwitchHeaderAndCode()
   let l:basefile = expand("%:t:r")
@@ -226,8 +183,9 @@ set tags+=./tags
 map <silent><C-Left> <C-T>
 map <silent><C-Right> <C-]>
 
+map <F5> :execute "vimgrep /" . expand("<cword>") . "/j **/*.ees **/*.cpp **/*.c **/*.h" <Bar> cw<CR>
 
-map <F4> :execute "vimgrep /" . expand("<cword>") . "/j **/*.cpp **/*.cc **/*.c **/*.h **/*.w" <Bar> cw<CR>
+map <F4> :execute "vimgrep /" . expand("<cword>") . "/j **/*.cs **/*.cpp **/*.cc **/*.c **/*.h **/*.w" <Bar> cw<CR>
 map <s-F4>  :execute "vimgrep /" . expand("<cword>") . "/j ../**/*.cpp **/*.cc ../**/*.c ../**/*.h" <Bar> cw<CR>
 
 function! MC_create_tag()
@@ -247,44 +205,3 @@ nmap ,t :!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q  -f $NIPATH/VCNET/inc
 
 
 
-au BufNewFile,BufRead *.cpp,*.c,*.h,*.java syn region myCComment start="/\*" end="\*/" fold keepend transparent
-
-set foldtext=MyFoldText()
-function MyFoldText()
-  let line = getline(v:foldstart)
-  let sub = substitute(line, '^[\t ]*', '', '')
-  let nlines = v:foldend - v:foldstart + 1
-  if strlen(nlines) == 1
-    let nlines = " " . nlines
-  elseif strlen(nlines) == 2
-    let nlines = " " . nlines
-  endif
-  return "+-" . v:folddashes . nlines . ": " . sub
-endfunction
-
-
-" Define keyword.
-if !exists('g:neocomplcache_keyword_patterns')
-    let g:neocomplcache_keyword_patterns = {}
-endif
-let g:neocomplcache_keyword_patterns['default'] = '\h\w*' 
-
-let g:neocomplcache_enable_at_startup = 0
-"imap <C-k>     <Plug>(neocomplcache_snippets_expand)
-"smap <C-k>     <Plug>(neocomplcache_snippets_expand)
-"inoremap <expr><C-g>     neocomplcache#undo_completion()
-"inoremap <expr><C-l>     neocomplcache#complete_common_string() 
-
-" OmniCppComplete
-let OmniCpp_NamespaceSearch = 1
-let OmniCpp_GlobalScopeSearch = 1
-let OmniCpp_ShowAccess = 1
-let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
-let OmniCpp_MayCompleteDot = 1 " autocomplete after .
-let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
-let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
-let OmniCpp_DefaultNamespaces = ["std", "ATL"]
-" automatically open and close the popup menu / preview window
-au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-set completeopt=menuone,menu,longest,preview
- 
