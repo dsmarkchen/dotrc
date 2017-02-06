@@ -127,7 +127,9 @@ Key x		A	SCM	Exec xterm
 Key y		A	SCM	Exec /bin/sh -c 'root-tail /var/log/messages'
 
 #ctrl+alt+z to lock
-Key z		A	CM	Exec /usr/bin/xlock
+Key z		A	CM	Exec gnome-screensaver-command -l
+#run webcam ctrl+alt+c
+Key c		A	CM	Exec cheese
 
 # three menus for mouse
 Mouse	1	R	N   Menu MainMenu Nop   
@@ -269,15 +271,18 @@ AddToMenu Window-Ops	"&Move"		Move
 
 DestroyMenu MainMenu
 AddToMenu MainMenu	
-+ %menu/konsole.png%"Konsole"	Exec exec konsole
++ %menu/konsole.png%"Terminal" Exec exec gnome-terminal
 + %menu/gvim.png%"Vim Editor" Exec exec gvim 
 + %menu/firefox.png%"Firefox"	Exec exec firefox
-+ %menu/smb4k.png%"smb4k"	Exec exec smb4k
-+ %menu/konqueror.png%"konqueror"	Exec exec konqueror
 +			""		Nop
-+ %menu/terminal.png%"hp ipaq h5550" RemoteShell 209.47.83.4
-+ %menu/terminal.png%"greenphone" RemoteShell 10.10.10.20 
++ %menu/konsole.png%"Email"	Exec exec evolution
++ %menu/konsole.png%"Hipchat"	Exec exec hipchat4
++ %menu/konsole.png%"SQL"	Exec exec sqldeveloper
++ %menu/konsole.png%"idea"	Exec exec idea
 +			""		Nop
+#+ %menu/terminal.png%"hp ipaq h5550" RemoteShell 209.47.83.4
+#+ %menu/terminal.png%"greenphone" RemoteShell 10.10.10.20 
+#+			""		Nop
 + %menu/gear.png%"Restart Fvwm"      Restart
 + %menu/exit.png%"Exit Fvwm"  Quit
 + "Take screenshot" Exec exec xwd -id $[w] -out $[HOME]/screenshot.cap

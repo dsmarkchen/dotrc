@@ -14,6 +14,7 @@ filetype plugin on
 "let NIPATH=C:\Program Files (x86)\National Instruments\MeasurementStudioVS2010
 
 if has("gui_running")
+set guifont=Monospace\ 10
 "set guifont=Droid_Sans_Mono:h10:cANSI
 "colorscheme google
 
@@ -21,7 +22,7 @@ if has("gui_running")
 "set gfn=Consolas:h12:cANSI
 
 " for dell moniters 1680x1050 
-set gfn=Consolas:h9:cANSI
+"set gfn=Consolas:h9:cANSI
 
 "set gfn=Courier_New:h10:cDEFAULT
 "set gfn=ProggyCleanTT:h12:cANSI
