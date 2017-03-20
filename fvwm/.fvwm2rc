@@ -111,8 +111,8 @@ Key Tab		A	M	Next (AcceptsFocus CurrentDesk) WarpToWindow
 Key Tab		A	SM	Prev (AcceptsFocus CurrentDesk) WarpToWindow
 Key Up		A	CM	ScanForWindow North West Focus
 Key Down	A	CM	ScanForWindow South West Focus
-Key Left	A	CM	ScanForWindow West North Focus
-Key Right	A	CM	ScanForWindow East North Focus
+#Key Left	A	CM	ScanForWindow West North Focus
+#Key Right	A	CM	ScanForWindow East North Focus
 
 
 Key F1		A	M	GotoDesk 0 0 0 0
@@ -230,7 +230,7 @@ AddToFunc StartFunction
 + I Module FvwmCommandS
 + I Module FvwmAnimate
 + I Module FvwmProxy
-+ I Exec exec fvwm-root -r $[fvwm_wallpapers]/background.png
++ I Exec exec fvwm-root -r $[fvwm_wallpapers]/background-15.png
 + I Test (Init) Exec fbpanel 
 #+ I Module FvwmAuto FvwmAutohide -menter enter_handler
 
@@ -273,6 +273,7 @@ DestroyMenu MainMenu
 AddToMenu MainMenu	
 + %menu/konsole.png%"Terminal" Exec exec gnome-terminal
 + %menu/gvim.png%"Vim Editor" Exec exec gvim 
++ %menu/firefox.png%"Chrome"	Exec exec google-chrome
 + %menu/firefox.png%"Firefox"	Exec exec firefox
 +			""		Nop
 + %menu/konsole.png%"Email"	Exec exec evolution
